@@ -1,25 +1,19 @@
-const title = document.querySelector("#title");
+const clockContainer = document.querySelector(".js-clock"),
+  clockTitle = clockContainer.querySelector("h1");
 
-const BASE_COLOR = "rgb(52, 73, 94)";
-const OTHER_COLOR = "#7f8c8d";
-
-function handleClick() {
-    const currentColor = title.style.color;
-    if (currentColor === BASE_COLOR){
-        title.style.color = OTHER_COLOR;
-    } else {
-        title.style.color = BASE_COLOR;
-    }
+function getTime() {
+  const date = new Date();
+  const minutes = date.getMinutes();
+  const hours = date.getHours();
+  const seconds = date.getSeconds();
+  clockTitle.innerText = `${hours < 10 ? `0${hours}` : hours}:${
+    minutes < 10 ? `0${minutes}` : minutes
+  }:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
 
-function init(){
-    title.style.color = BASE_COLOR;
-    title.addEventListener("mouseenter", handleClick);
+function init() {
+  getTime();
+  setInterval(getTime, 1000);
 }
+
 init();
-
-function handleOffline() {
-    console.log("kfc");
-}
-
-window.addEventListener("offline", handleOffline);
